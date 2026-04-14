@@ -18,7 +18,7 @@ const App = () => {
       c.name.common.toLowerCase().includes(query.toLowerCase())
     )
     setFilteredCountries(results)
-    setSelectedCountry(null) 
+    setSelectedCountry(null)  
   }, [query, countries])
 
   return (
