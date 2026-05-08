@@ -1,5 +1,5 @@
 const Notification = ({ message, type }) => {
-  if (message === null) return null
+  if (!message) return null
 
   const style = {
     color: type === 'error' ? 'red' : 'green',
@@ -13,4 +13,5 @@ const Notification = ({ message, type }) => {
 
   return <div style={style}>{message}</div>
 }
+
 export default Notification
