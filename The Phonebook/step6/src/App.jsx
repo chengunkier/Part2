@@ -39,7 +39,7 @@ const App = () => {
       number: newNumber,
     }
 
-    // add data to save in backend
+    
     axios
       .post('http://localhost:3001/persons', personObject)
       .then(response => {
