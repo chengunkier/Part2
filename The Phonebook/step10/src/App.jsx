@@ -47,12 +47,9 @@ const App = () => {
   
       .catch(error => {
   
-        notify('Failed to add person', 'error')
-  
-        console.log(error)
+        notify(error.response.data.error, 'error')
       })
   }
-
   const deletePerson = (id, name) => {
     if (window.confirm(`Delete ${name}?`)) {
       personService.remove(id).then(() => {
