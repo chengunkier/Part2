@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import personService from './services/persons'
+import personService from './Services/Persons'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
@@ -24,34 +24,33 @@ const App = () => {
   }
 
   const addPerson = (event) => {
-    event.preventDefault()
-    const existingPerson = persons.find(p => p.name.toLowerCase() === newName.toLowerCase())
 
-    if (existingPerson) {
-      if (window.confirm(`${newName} is already added to phonebook, replace the old number?`)) {
-        const changedPerson = { ...existingPerson, number: newNumber }
-        personService
-          .update(existingPerson.id, changedPerson)
-          .then(returnedPerson => {
-            setPersons(persons.map(p => p.id !== existingPerson.id ? p : returnedPerson))
-            notify(`Updated ${newName}'s number`)
-            setNewName('')
-            setNewNumber('')
-          })
-          .catch(() => {
-            notify(`Information of ${newName} has already been removed from server`, 'error')
-            setPersons(persons.filter(p => p.id !== existingPerson.id))
-          })
-      }
-    } else {
-      const personObject = { name: newName, number: newNumber }
-      personService.create(personObject).then(returnedPerson => {
+    event.preventDefault()
+  
+    const personObject = {
+      name: newName,
+      number: newNumber
+    }
+  
+    personService
+      .create(personObject)
+  
+      .then(returnedPerson => {
+  
         setPersons(persons.concat(returnedPerson))
+  
         notify(`Added ${newName}`)
+  
         setNewName('')
         setNewNumber('')
       })
-    }
+  
+      .catch(error => {
+  
+        notify('Failed to add person', 'error')
+  
+        console.log(error)
+      })
   }
 
   const deletePerson = (id, name) => {

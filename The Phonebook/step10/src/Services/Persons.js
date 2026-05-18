@@ -1,4 +1,5 @@
 import axios from 'axios'
+
 const baseUrl = 'http://localhost:3000/api/persons'
 
 const getAll = async () => {
@@ -16,8 +17,13 @@ const update = async (id, newObject) => {
   return response.data
 }
 
-const remove = (id) => {
-  return axios.delete(`${baseUrl}/${id}`)
+const remove = async (id) => {
+  return await axios.delete(`${baseUrl}/${id}`)
 }
 
-export default { getAll, create, update, remove }
+export default {
+  getAll,
+  create,
+  update,
+  remove
+}
